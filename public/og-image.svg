@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B2A6B"/>
+      <stop offset="60%" stop-color="#2A3F8F"/>
+      <stop offset="100%" stop-color="#3FA055"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="45" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Frost texture dots -->
+  <g fill="#ffffff" opacity="0.06">
+    <circle cx="120" cy="140" r="4"/>
+    <circle cx="280" cy="90" r="6"/>
+    <circle cx="980" cy="180" r="5"/>
+    <circle cx="1080" cy="420" r="7"/>
+    <circle cx="180" cy="480" r="5"/>
+    <circle cx="880" cy="520" r="4"/>
+    <circle cx="420" cy="560" r="6"/>
+    <circle cx="720" cy="60" r="5"/>
+  </g>
+
+  <!-- Large decorative snowflake -->
+  <g transform="translate(900, 320) scale(1.6)" opacity="0.12" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 -80 L0 80 M-69 -40 L69 40 M-69 40 L69 -40" stroke-width="6"/>
+    <path d="M0 -80 L0 80 M-69 -40 L69 40 M-69 40 L69 -40" stroke-width="6" transform="rotate(30)"/>
+    <circle cx="0" cy="-80" r="8" fill="#ffffff" stroke="none"/>
+    <circle cx="69" cy="40" r="8" fill="#ffffff" stroke="none"/>
+    <circle cx="-69" cy="40" r="8" fill="#ffffff" stroke="none"/>
+  </g>
+
+  <!-- Accent bar -->
+  <rect x="100" y="420" width="120" height="6" rx="3" fill="#3FA055" opacity="0.9"/>
+
+  <!-- Title -->
+  <text x="100" y="260" font-family="Inter, system-ui, sans-serif" font-size="92" font-weight="800" fill="#ffffff" letter-spacing="-2">
+    Signature Elite
+  </text>
+
+  <!-- Subtitle -->
+  <text x="100" y="330" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="500" fill="#ffffff" opacity="0.88" letter-spacing="0.5">
+    Email Signature Studio
+  </text>
+
+  <!-- Tagline -->
+  <text x="100" y="390" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="400" fill="#ffffff" opacity="0.65">
+    Premium brand-compliant signatures · QR vCard · Social proof · Multi-platform export
+  </text>
+
+  <!-- Bottom brand mark -->
+  <text x="100" y="560" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="#ffffff" opacity="0.5" letter-spacing="3">
+    EKO ELEKTROFRIGO · BRAND SYSTEM
+  </text>
+</svg>
