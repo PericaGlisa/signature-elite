@@ -790,30 +790,33 @@ export function SignatureStudio() {
         {/* EXPORT */}
         <Card className="border-border/60 shadow-[var(--shadow-soft)]">
           <Tabs defaultValue="export">
-            <div className="px-3 sm:px-6 pt-4 sm:pt-5 border-b border-border/60 overflow-x-auto">
-              <TabsList className="bg-muted/60 w-full grid grid-cols-4">
-                <TabsTrigger value="export" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
-                  <Download className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
-                  <span>Izvoz</span>
+            <div className="px-3 sm:px-6 pt-4 sm:pt-5 border-b border-border/60">
+              <TabsList className="bg-muted/60 w-full grid grid-cols-4 h-auto sm:h-9">
+                <TabsTrigger value="export" className="flex-col sm:flex-row gap-0 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-[10px] sm:text-sm" title="Izvoz">
+                  <Download className="w-4 h-4 shrink-0" />
+                  <span className="sm:hidden leading-tight">Izvoz</span>
+                  <span className="hidden sm:inline">Izvoz</span>
                 </TabsTrigger>
-                <TabsTrigger value="code" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
-                  <FileCode className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
-                  <span>HTML kod</span>
+                <TabsTrigger value="code" className="flex-col sm:flex-row gap-0 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-[10px] sm:text-sm" title="HTML kod">
+                  <FileCode className="w-4 h-4 shrink-0" />
+                  <span className="sm:hidden leading-tight">HTML</span>
+                  <span className="hidden sm:inline">HTML kod</span>
                 </TabsTrigger>
-                <TabsTrigger value="quality" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
-                  <ShieldCheck className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
-                  <span className="flex items-center gap-1">
-                    Kvalitet
+                <TabsTrigger value="quality" className="flex-col sm:flex-row gap-0 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-[10px] sm:text-sm" title="Kvalitet">
+                  <ShieldCheck className="w-4 h-4 shrink-0" />
+                  <span className="flex items-center gap-0.5 sm:gap-1 leading-tight">
+                    <span className="sm:hidden">Kval.</span>
+                    <span className="hidden sm:inline">Kvalitet</span>
                     {(errorCount + warnCount) > 0 && (
-                      <span className="inline-flex items-center justify-center min-w-[16px] sm:min-w-[18px] h-[16px] sm:h-[18px] px-0.5 sm:px-1 rounded-full text-[9px] sm:text-[10px] font-semibold bg-brand-green/20 text-brand-green-deep">
+                      <span className="inline-flex items-center justify-center min-w-[14px] sm:min-w-[18px] h-[14px] sm:h-[18px] px-0.5 sm:px-1 rounded-full text-[9px] sm:text-[10px] font-semibold bg-brand-green/20 text-brand-green-deep">
                         {errorCount + warnCount}
                       </span>
                     )}
                   </span>
                 </TabsTrigger>
-                <TabsTrigger value="install" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
-                  <Mail className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
-                  <span>Uputstva</span>
+                <TabsTrigger value="install" className="flex-col sm:flex-row gap-0 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-[10px] sm:text-sm" title="Uputstva">
+                  <Mail className="w-4 h-4 shrink-0" />
+                  <span className="leading-tight">Uputstva</span>
                 </TabsTrigger>
               </TabsList>
             </div>
