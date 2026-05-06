@@ -176,7 +176,20 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
     d.position +
     (d.department ? ` <span style="color:${MUTED};font-weight:400;">· ${d.department}</span>` : "");
 
-  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Inter,Arial,Helvetica,sans-serif;background:#ffffff;width:100%;max-width:620px;">
+  return `<!--[if !mso]><!-->
+<style type="text/css">
+  @media screen and (max-width:520px) {
+    .eko-sig-root { width:100%!important; }
+    .eko-sig-left { display:block!important; width:100%!important; max-width:100%!important; min-width:0!important; border-right:none!important; border-bottom:1px solid ${BORDER}!important; padding-right:0!important; padding-bottom:14px!important; margin-bottom:14px!important; text-align:center!important; }
+    .eko-sig-right { display:block!important; width:100%!important; padding-left:0!important; }
+    .eko-sig-left img { margin:0 auto; }
+    .eko-sig-qr { margin:14px auto 0 auto!important; }
+    .eko-sig-vcard { text-align:center!important; }
+    .eko-sig-cta { display:block!important; text-align:center!important; }
+  }
+</style>
+<!--<![endif]-->
+<table cellpadding="0" cellspacing="0" border="0" role="presentation" class="eko-sig-root" style="border-collapse:collapse;font-family:Inter,Arial,Helvetica,sans-serif;background:#ffffff;width:100%;max-width:620px;">
   <tr><td style="padding:0;">
 
     <!-- TOP ACCENT BAR -->
@@ -191,14 +204,14 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
         <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="100%" style="border-collapse:collapse;">
           <tr>
             <!-- LEFT: Logo + QR + vCard -->
-            <td style="padding-right:18px;vertical-align:top;border-right:1px solid ${BORDER};width:30%;min-width:140px;max-width:180px;">
+            <td class="eko-sig-left" style="padding-right:18px;vertical-align:top;border-right:1px solid ${BORDER};width:30%;min-width:140px;max-width:180px;">
               <img src="${logoSrc}" width="160" alt="${d.company}" style="display:block;border:0;max-width:100%;height:auto;" />
-              ${qrBlock}
-              ${vcardDownloadBlock}
+              ${qrBlock ? `<div class="eko-sig-qr">${qrBlock}</div>` : qrBlock}
+              <div class="eko-sig-vcard">${vcardDownloadBlock}</div>
             </td>
 
             <!-- RIGHT: Identity + Contact -->
-            <td style="padding-left:18px;vertical-align:top;width:70%;">
+            <td class="eko-sig-right" style="padding-left:18px;vertical-align:top;width:70%;">
               ${photoBlock}
 
               <div style="font-family:Inter,Arial,sans-serif;font-size:20px;font-weight:700;color:${NAVY_DEEP};line-height:1.15;letter-spacing:-0.4px;">
