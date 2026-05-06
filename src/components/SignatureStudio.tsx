@@ -790,28 +790,30 @@ export function SignatureStudio() {
         {/* EXPORT */}
         <Card className="border-border/60 shadow-[var(--shadow-soft)]">
           <Tabs defaultValue="export">
-            <div className="px-6 pt-5 border-b border-border/60">
-              <TabsList className="bg-muted/60">
-                <TabsTrigger value="export">
-                  <Download className="w-3.5 h-3.5 mr-1.5" />
-                  Izvoz
+            <div className="px-3 sm:px-6 pt-4 sm:pt-5 border-b border-border/60 overflow-x-auto">
+              <TabsList className="bg-muted/60 w-full grid grid-cols-4">
+                <TabsTrigger value="export" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
+                  <Download className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  <span>Izvoz</span>
                 </TabsTrigger>
-                <TabsTrigger value="code">
-                  <FileCode className="w-3.5 h-3.5 mr-1.5" />
-                  HTML kod
+                <TabsTrigger value="code" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
+                  <FileCode className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  <span>HTML kod</span>
                 </TabsTrigger>
-                <TabsTrigger value="quality">
-                  <ShieldCheck className="w-3.5 h-3.5 mr-1.5" />
-                  Kvalitet
-                  {(errorCount + warnCount) > 0 && (
-                    <span className="ml-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-semibold bg-brand-green/20 text-brand-green-deep">
-                      {errorCount + warnCount}
-                    </span>
-                  )}
+                <TabsTrigger value="quality" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
+                  <ShieldCheck className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  <span className="flex items-center gap-1">
+                    Kvalitet
+                    {(errorCount + warnCount) > 0 && (
+                      <span className="inline-flex items-center justify-center min-w-[16px] sm:min-w-[18px] h-[16px] sm:h-[18px] px-0.5 sm:px-1 rounded-full text-[9px] sm:text-[10px] font-semibold bg-brand-green/20 text-brand-green-deep">
+                        {errorCount + warnCount}
+                      </span>
+                    )}
+                  </span>
                 </TabsTrigger>
-                <TabsTrigger value="install">
-                  <Mail className="w-3.5 h-3.5 mr-1.5" />
-                  Uputstva
+                <TabsTrigger value="install" className="flex-col sm:flex-row gap-0.5 sm:gap-1.5 px-1 sm:px-3 py-2 sm:py-1 text-xs sm:text-sm">
+                  <Mail className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  <span>Uputstva</span>
                 </TabsTrigger>
               </TabsList>
             </div>
