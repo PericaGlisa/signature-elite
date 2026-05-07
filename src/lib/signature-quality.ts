@@ -25,7 +25,6 @@ export function runQualityChecks(d: SignatureData): QualityIssue[] {
   checkUrl("Web sajt 1", d.website);
   checkUrl("Web sajt 2", d.website2);
   checkUrl("CTA link", d.ctaUrl);
-  checkUrl("Sekundarni CTA link", d.secondaryCtaUrl);
   checkUrl("Banner link", d.bannerLink);
   checkUrl("Booking link", d.bookingUrl);
   checkUrl("LinkedIn", d.social.linkedin);
@@ -50,23 +49,14 @@ export function runQualityChecks(d: SignatureData): QualityIssue[] {
   if (d.showCta && (!d.ctaLabel || !d.ctaUrl))
     out.push({ level: "warning", message: "CTA je uključen ali nedostaje tekst ili link." });
 
-  if (d.showSecondaryCta && (!d.secondaryCtaLabel || !d.secondaryCtaUrl))
-    out.push({ level: "warning", message: "Sekundarni CTA je uključen ali nedostaje tekst ili link." });
-
   if (d.showBanner && !d.bannerUrl)
     out.push({ level: "info", message: "Banner uključen, ali slika nije postavljena." });
 
   if (d.showBooking && !d.bookingUrl)
     out.push({ level: "warning", message: "Booking link je uključen ali URL nije postavljen." });
 
-  if (d.showSocialProof && !d.ratingText && !d.certificates)
-    out.push({ level: "info", message: "Social proof je uključen ali nema ocene ni sertifikata." });
-
   if (d.showOemBadges && !d.oemPartners)
     out.push({ level: "warning", message: "OEM badge-ovi su uključeni ali lista partnera je prazna." });
-
-  if (d.showDisclaimer && (d.legalDisclaimer ?? "").length < 30)
-    out.push({ level: "info", message: "Pravni disclaimer je vrlo kratak." });
 
   if (d.utm.enabled && !d.utm.source.trim())
     out.push({ level: "warning", message: "UTM source je prazan." });

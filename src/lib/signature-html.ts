@@ -25,8 +25,6 @@ const ICON = {
   facebook: "https://api.iconify.design/mdi/facebook.svg?color=%232A3F8F",
   youtube: "https://api.iconify.design/mdi/youtube.svg?color=%232A3F8F",
   calendar: "https://api.iconify.design/material-symbols/calendar-month-outline-rounded.svg?color=%232A3F8F",
-  star: "https://api.iconify.design/material-symbols/star-rounded.svg?color=%23F59E0B",
-  certificate: "https://api.iconify.design/material-symbols/verified-outline-rounded.svg?color=%233FA055",
 };
 
 function contactRow(iconUrl: string, content: string) {
@@ -48,18 +46,7 @@ function socialBadge(url: string, iconUrl: string, alt: string) {
 export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string {
   const phoneClean = (n: string) => n.replace(/[^\d+]/g, "");
   const wa = d.whatsapp ? phoneClean(d.whatsapp).replace(/^\+/, "") : "";
-  const waMessage = d.whatsappMessage ? encodeURIComponent(d.whatsappMessage) : "";
   const logoSrc = d.logoUrl && d.logoUrl.trim() !== "" ? d.logoUrl : EKO_LOGO_BASE64;
-
-  // vCard download data URI
-  const vcardStr = buildVCard(d);
-  const vcardBase64 = btoa(
-    encodeURIComponent(vcardStr).replace(
-      /%([0-9A-F]{2})/g,
-      (_, p1) => String.fromCharCode(Number.parseInt(p1, 16)),
-    ),
-  );
-  const vcardDataUrl = `data:text/vcard;charset=utf-8;base64,${vcardBase64}`;
 
   const socialHtml = [
     d.social.linkedin && socialBadge(withUtm(d.social.linkedin, d, "linkedin"), ICON.linkedin, "LinkedIn"),
@@ -75,10 +62,6 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
     ? `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;margin-bottom:14px;"><tr><td style="line-height:0;">
         <img src="${d.photoUrl}" width="76" height="76" alt="${d.fullName}" style="display:block;border-radius:50%;border:2px solid ${GREEN};object-fit:cover;" />
       </td></tr></table>`
-    : "";
-
-  const sloganBlock = d.slogan
-    ? `<div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:12.5px;color:${GREEN_DEEP};margin-top:6px;letter-spacing:0.2px;">"${d.slogan}"</div>`
     : "";
 
   // OEM / partner trust badges
@@ -122,20 +105,6 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
         </td></tr>`
       : "";
 
-  // Secondary CTA
-  const secondaryCtaBlock =
-    d.showSecondaryCta && d.secondaryCtaLabel && d.secondaryCtaUrl
-      ? `<tr><td style="padding-top:10px;">
-          <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:separate;"><tr>
-            <td style="background:#ffffff;border:1.5px solid ${GREEN_DEEP};border-radius:6px;">
-              <a href="${withUtm(d.secondaryCtaUrl, d, "secondary-cta")}" style="display:inline-block;padding:8px 16px;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:600;color:${GREEN_DEEP};text-decoration:none;letter-spacing:0.4px;text-transform:uppercase;">
-                ${d.secondaryCtaLabel}&nbsp;&nbsp;→
-              </a>
-            </td>
-          </tr></table>
-        </td></tr>`
-      : "";
-
   const bannerAlt = d.bannerLink ? "Promotivni banner" : "Banner";
   const bannerBlock =
     d.showBanner && d.bannerUrl
@@ -146,36 +115,6 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
       </td></tr>`
       : "";
 
-  const disclaimer =
-    d.showDisclaimer && d.legalDisclaimer
-      ? `<tr><td style="padding-top:14px;">
-        <div style="font-family:Inter,Arial,sans-serif;font-size:9.5px;line-height:1.55;color:${MUTED};max-width:540px;letter-spacing:0.1px;">
-          ${d.legalDisclaimer}
-        </div>
-      </td></tr>`
-      : "";
-
-  // QR block (compact, lives next to logo)
-  const qrBlock =
-    d.showQr && qrDataUrl
-      ? `<div style="margin-top:14px;padding:8px;background:#ffffff;border:1px solid ${BORDER};border-radius:8px;display:inline-block;">
-          <img src="${qrDataUrl}" width="84" height="84" alt="vCard QR" style="display:block;" />
-          <div style="font-family:Inter,Arial,sans-serif;font-size:8px;color:${MUTED};text-align:center;margin-top:4px;letter-spacing:1px;text-transform:uppercase;font-weight:600;">Skeniraj vCard</div>
-        </div>`
-      : "";
-
-  // vCard download button
-  const vcardDownloadBlock = `<div style="margin-top:14px;">
-    <a href="${vcardDataUrl}" style="display:inline-block;padding:7px 14px;background:${GREEN_DEEP};border-radius:6px;font-family:Inter,Arial,sans-serif;font-size:11px;font-weight:600;color:#ffffff;text-decoration:none;letter-spacing:0.3px;text-transform:uppercase;">
-      Sačuvaj kontakt ↓
-    </a>
-  </div>`;
-
-  // Department / position line
-  const positionLine =
-    d.position +
-    (d.department ? ` <span style="color:${MUTED};font-weight:400;">· ${d.department}</span>` : "");
-
   return `<!--[if !mso]><!-->
 <style type="text/css">
   @media screen and (max-width:520px) {
@@ -183,8 +122,6 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
     .eko-sig-left { display:block!important; width:100%!important; max-width:100%!important; min-width:0!important; border-right:none!important; border-bottom:1px solid ${BORDER}!important; padding-right:0!important; padding-bottom:14px!important; margin-bottom:14px!important; text-align:center!important; }
     .eko-sig-right { display:block!important; width:100%!important; padding-left:0!important; }
     .eko-sig-left img { margin:0 auto; }
-    .eko-sig-qr { margin:14px auto 0 auto!important; }
-    .eko-sig-vcard { text-align:center!important; }
     .eko-sig-cta { display:block!important; text-align:center!important; }
   }
 </style>
@@ -203,11 +140,9 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
       <tr><td style="padding-top:18px;">
         <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="100%" style="border-collapse:collapse;">
           <tr>
-            <!-- LEFT: Logo + QR + vCard -->
+            <!-- LEFT: Logo -->
             <td class="eko-sig-left" style="padding-right:18px;vertical-align:top;border-right:1px solid ${BORDER};width:30%;min-width:140px;max-width:180px;">
               <img src="${logoSrc}" width="160" alt="${d.company}" style="display:block;border:0;max-width:100%;height:auto;" />
-              ${qrBlock ? `<div class="eko-sig-qr">${qrBlock}</div>` : qrBlock}
-              <div class="eko-sig-vcard">${vcardDownloadBlock}</div>
             </td>
 
             <!-- RIGHT: Identity + Contact -->
@@ -218,12 +153,11 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
                 ${d.fullName}
               </div>
               <div style="font-family:Inter,Arial,sans-serif;font-size:11px;font-weight:600;color:${GREEN_DEEP};letter-spacing:1.6px;text-transform:uppercase;margin-top:6px;">
-                ${positionLine}
+                ${d.position}
               </div>
               <div style="font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:600;color:${NAVY};margin-top:8px;letter-spacing:0.1px;">
                 ${d.company}
               </div>
-              ${sloganBlock}
               ${oemBlock}
 
               <!-- Divider -->
@@ -235,7 +169,7 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
               <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
                 ${d.phone ? contactRow(ICON.phone, `<a href="tel:${phoneClean(d.phone)}" style="color:${TEXT};text-decoration:none;"><strong style="font-weight:600;color:${NAVY_DEEP};">T</strong>&nbsp;&nbsp;${d.phone}</a>`) : ""}
                 ${d.mobile ? contactRow(ICON.mobile, `<a href="tel:${phoneClean(d.mobile)}" style="color:${TEXT};text-decoration:none;"><strong style="font-weight:600;color:${NAVY_DEEP};">M</strong>&nbsp;&nbsp;${d.mobile}</a>`) : ""}
-                ${wa ? contactRow(ICON.whatsapp, `<a href="https://wa.me/${wa}${waMessage ? `?text=${waMessage}` : ""}" style="color:${TEXT};text-decoration:none;">WhatsApp&nbsp;&nbsp;${d.whatsapp}</a>`) : ""}
+                ${wa ? contactRow(ICON.whatsapp, `<a href="https://wa.me/${wa}" style="color:${TEXT};text-decoration:none;">WhatsApp&nbsp;&nbsp;${d.whatsapp}</a>`) : ""}
                 ${d.email ? contactRow(ICON.email, `<a href="mailto:${d.email}" style="color:${GREEN_DEEP};text-decoration:none;font-weight:600;">${d.email}</a>`) : ""}
                 ${webContent ? contactRow(ICON.web, webContent) : ""}
                 ${d.address || d.city ? contactRow(ICON.pin, `${d.address}${d.address && d.city ? ", " : ""}${d.city}`) : ""}
@@ -254,43 +188,13 @@ export function buildSignatureHtml(d: SignatureData, qrDataUrl?: string): string
                   </tr></table>`
                 : ""}
 
-              <!-- Social proof row -->
-              ${d.showSocialProof && (d.ratingText || d.certificates)
-                ? `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;margin-top:14px;"><tr><td>
-                    <div style="display:inline-block;font-family:Inter,Arial,sans-serif;font-size:11px;color:${MUTED};line-height:1.4;">
-                      ${d.ratingText
-                        ? `<span style="display:inline-block;background:${SOFT_BG};border:1px solid ${BORDER};border-radius:4px;padding:3px 8px;margin-right:6px;white-space:nowrap;">
-                            <img src="${ICON.star}" width="12" height="12" alt="" style="display:inline-block;vertical-align:middle;margin-right:3px;border:0;" />
-                            <span style="color:${TEXT};font-weight:600;vertical-align:middle;">${d.ratingText}</span>
-                          </span>`
-                        : ""}
-                      ${d.certificates
-                        ? d.certificates.split(",").map(c => c.trim()).filter(Boolean).map(c =>
-                            `<span style="display:inline-block;background:${SOFT_BG};border:1px solid ${BORDER};border-radius:4px;padding:3px 8px;margin-right:6px;margin-top:4px;white-space:nowrap;">
-                              <img src="${ICON.certificate}" width="12" height="12" alt="" style="display:inline-block;vertical-align:middle;margin-right:3px;border:0;" />
-                              <span style="color:${TEXT};font-weight:600;vertical-align:middle;">${c}</span>
-                            </span>`
-                          ).join("")
-                        : ""}
-                    </div>
-                  </td></tr></table>`
-                : ""}
-
               <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
                 ${ctaBlock}
-                ${secondaryCtaBlock}
                 ${d.showSocial && socialHtml ? `<tr><td style="padding-top:14px;">${socialHtml}</td></tr>` : ""}
                 ${bannerBlock}
               </table>
             </td>
           </tr>
-        </table>
-      </td></tr>
-
-      <!-- Disclaimer (full width below) -->
-      <tr><td>
-        <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
-          ${disclaimer}
         </table>
       </td></tr>
     </table>

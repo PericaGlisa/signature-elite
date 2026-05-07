@@ -225,28 +225,14 @@ export function SignatureStudio() {
               <Field label="Ime i prezime">
                 <Input value={data.fullName} onChange={(e) => update("fullName", e.target.value)} />
               </Field>
-              <div className="grid grid-cols-2 gap-3">
-                <Field label="Pozicija">
-                  <Input
-                    value={data.position}
-                    onChange={(e) => update("position", e.target.value)}
-                  />
-                </Field>
-                <Field label="Sektor">
-                  <Input
-                    value={data.department ?? ""}
-                    onChange={(e) => update("department", e.target.value)}
-                  />
-                </Field>
-              </div>
+              <Field label="Pozicija">
+                <Input
+                  value={data.position}
+                  onChange={(e) => update("position", e.target.value)}
+                />
+              </Field>
               <Field label="Kompanija">
                 <Input value={data.company} onChange={(e) => update("company", e.target.value)} />
-              </Field>
-              <Field label="Slogan (opciono)">
-                <Input
-                  value={data.slogan ?? ""}
-                  onChange={(e) => update("slogan", e.target.value)}
-                />
               </Field>
 
               <div className="flex items-center justify-between rounded-lg border border-border/60 p-3 bg-muted/40">
@@ -347,16 +333,6 @@ export function SignatureStudio() {
                   onChange={(e) => update("whatsapp", e.target.value)}
                 />
               </Field>
-              <Field label="WhatsApp poruka (auto-popuna)">
-                <Textarea
-                  rows={2}
-                  value={data.whatsappMessage ?? ""}
-                  onChange={(e) => update("whatsappMessage", e.target.value)}
-                />
-                <p className="text-[10px] text-muted-foreground mt-1">
-                  Klik na WhatsApp link otvara chat sa već unetom porukom.
-                </p>
-              </Field>
               <Field label="Email">
                 <Input value={data.email} onChange={(e) => update("email", e.target.value)} />
               </Field>
@@ -397,18 +373,20 @@ export function SignatureStudio() {
           </AccordionItem>
 
           <AccordionItem value="message" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">Tekst poruke (uvod)</span>
-                </div>
+            <AccordionTrigger
+              className="px-4 hover:no-underline"
+              rightElement={
                 <SectionSwitch
                   checked={data.showIntroMessage}
                   onCheckedChange={(v) => update("showIntroMessage", v)}
                 />
+              }
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <span className="font-medium">Tekst poruke (uvod)</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 space-y-3">
@@ -429,18 +407,20 @@ export function SignatureStudio() {
           </AccordionItem>
 
           <AccordionItem value="cta" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-green/10 text-brand-green-deep flex items-center justify-center">
-                    <Briefcase className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">CTA dugmad</span>
-                </div>
+            <AccordionTrigger
+              className="px-4 hover:no-underline"
+              rightElement={
                 <SectionSwitch
                   checked={data.showCta}
                   onCheckedChange={(v) => update("showCta", v)}
                 />
+              }
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-green/10 text-brand-green-deep flex items-center justify-center">
+                  <Briefcase className="w-4 h-4" />
+                </div>
+                <span className="font-medium">CTA dugmad</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 space-y-3">
@@ -456,51 +436,24 @@ export function SignatureStudio() {
                   onChange={(e) => update("ctaUrl", e.target.value)}
                 />
               </Field>
-
-              <div className="flex items-center justify-between rounded-lg border border-border/60 p-3 bg-muted/40">
-                <div>
-                  <div className="text-sm font-medium">Sekundarni CTA</div>
-                  <div className="text-xs text-muted-foreground">
-                    Lead magnet za hladne primaoce
-                  </div>
-                </div>
-                <Switch
-                  checked={data.showSecondaryCta}
-                  onCheckedChange={(v) => update("showSecondaryCta", v)}
-                />
-              </div>
-              {data.showSecondaryCta && (
-                <>
-                  <Field label="Sekundarni CTA — tekst">
-                    <Input
-                      value={data.secondaryCtaLabel ?? ""}
-                      onChange={(e) => update("secondaryCtaLabel", e.target.value)}
-                    />
-                  </Field>
-                  <Field label="Sekundarni CTA — link">
-                    <Input
-                      value={data.secondaryCtaUrl ?? ""}
-                      onChange={(e) => update("secondaryCtaUrl", e.target.value)}
-                    />
-                  </Field>
-                </>
-              )}
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="banner" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
-                    <ImageIcon className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">Banner / promocija</span>
-                </div>
+            <AccordionTrigger
+              className="px-4 hover:no-underline"
+              rightElement={
                 <SectionSwitch
                   checked={data.showBanner}
                   onCheckedChange={(v) => update("showBanner", v)}
                 />
+              }
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
+                  <ImageIcon className="w-4 h-4" />
+                </div>
+                <span className="font-medium">Banner / promocija</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 space-y-3">
@@ -529,18 +482,20 @@ export function SignatureStudio() {
           </AccordionItem>
 
           <AccordionItem value="social" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
-                    <Share2 className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">Društvene mreže</span>
-                </div>
+            <AccordionTrigger
+              className="px-4 hover:no-underline"
+              rightElement={
                 <SectionSwitch
                   checked={data.showSocial}
                   onCheckedChange={(v) => update("showSocial", v)}
                 />
+              }
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
+                  <Share2 className="w-4 h-4" />
+                </div>
+                <span className="font-medium">Društvene mreže</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 space-y-3">
@@ -572,18 +527,20 @@ export function SignatureStudio() {
           </AccordionItem>
 
           <AccordionItem value="booking" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
-                    <Calendar className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">Booking / Calendly</span>
-                </div>
+            <AccordionTrigger
+              className="px-4 hover:no-underline"
+              rightElement={
                 <SectionSwitch
                   checked={data.showBooking}
                   onCheckedChange={(v) => update("showBooking", v)}
                 />
+              }
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <span className="font-medium">Booking / Calendly</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 space-y-3">
@@ -603,86 +560,21 @@ export function SignatureStudio() {
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="social-proof" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-green/10 text-brand-green-deep flex items-center justify-center">
-                    <Star className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">Social proof</span>
-                </div>
-                <SectionSwitch
-                  checked={data.showSocialProof}
-                  onCheckedChange={(v) => update("showSocialProof", v)}
-                />
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="px-4 pb-4 space-y-3">
-              <Field label="Ocena / recenzije (npr. 4.9/5 — 120+ recenzija)">
-                <Input
-                  value={data.ratingText ?? ""}
-                  onChange={(e) => update("ratingText", e.target.value)}
-                />
-              </Field>
-              <Field label="Sertifikati (odvojeni zarezom)">
-                <Input
-                  placeholder="ISO 9001, HACCP, CE"
-                  value={data.certificates ?? ""}
-                  onChange={(e) => update("certificates", e.target.value)}
-                />
-              </Field>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="extras" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-green/10 text-brand-green-deep flex items-center justify-center">
-                    <Globe className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">QR & disclaimer</span>
-                </div>
-                <SectionSwitch
-                  checked={data.showDisclaimer}
-                  onCheckedChange={(v) => update("showDisclaimer", v)}
-                />
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="px-4 pb-4 space-y-4">
-              <div className="flex items-center justify-between rounded-lg border border-border/60 p-3 bg-muted/40">
-                <div>
-                  <div className="text-sm font-medium">QR vCard kod</div>
-                  <div className="text-xs text-muted-foreground">
-                    Skeniraj telefonom — sačuvaj kontakt
-                  </div>
-                </div>
-                <Switch checked={data.showQr} onCheckedChange={(v) => update("showQr", v)} />
-              </div>
-              <Field label="Pravni disclaimer">
-                <Textarea
-                  rows={4}
-                  value={data.legalDisclaimer ?? ""}
-                  onChange={(e) => update("legalDisclaimer", e.target.value)}
-                />
-              </Field>
-            </AccordionContent>
-          </AccordionItem>
-
           <AccordionItem value="utm" className="border-border/60">
-            <AccordionTrigger className="px-4 hover:no-underline">
-              <div className="flex flex-1 items-center justify-between gap-3 pr-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
-                    <BarChart3 className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">Trackable linkovi (UTM)</span>
-                </div>
+            <AccordionTrigger
+              className="px-4 hover:no-underline"
+              rightElement={
                 <SectionSwitch
                   checked={data.utm.enabled}
                   onCheckedChange={(v) => update("utm", { ...data.utm, enabled: v })}
                 />
+              }
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-navy/10 text-brand-navy flex items-center justify-center">
+                  <BarChart3 className="w-4 h-4" />
+                </div>
+                <span className="font-medium">Trackable linkovi (UTM)</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 space-y-3">
@@ -712,24 +604,6 @@ export function SignatureStudio() {
                   onChange={(e) => update("utm", { ...data.utm, campaign: e.target.value })}
                 />
               </Field>
-              <Field label="utm_term (opciono)">
-                <Input
-                  value={data.utm.term ?? ""}
-                  onChange={(e) => update("utm", { ...data.utm, term: e.target.value })}
-                />
-              </Field>
-              <div className="flex items-center justify-between rounded-lg border border-border/60 p-3 bg-muted/40">
-                <div>
-                  <div className="text-sm font-medium">Auto utm_content po linku</div>
-                  <div className="text-xs text-muted-foreground">
-                    cta, website, banner, linkedin…
-                  </div>
-                </div>
-                <Switch
-                  checked={data.utm.autoContent}
-                  onCheckedChange={(v) => update("utm", { ...data.utm, autoContent: v })}
-                />
-              </div>
               {data.utm.enabled && data.ctaUrl && (
                 <div className="rounded-md border border-border/60 bg-background p-3 text-[11px] font-mono break-all text-muted-foreground">
                   <div className="text-[10px] uppercase tracking-wider text-foreground/60 mb-1">
@@ -867,12 +741,6 @@ export function SignatureStudio() {
                   label="Preuzmi vCard"
                   hint=".vcf — kontakt fajl"
                   onClick={downloadVCard}
-                />
-                <ExportBtn
-                  icon={<Smartphone />}
-                  label="QR vCard"
-                  hint={data.showQr ? "Aktivan u potpisu" : "Uključi u podešavanjima"}
-                  onClick={() => update("showQr", !data.showQr)}
                 />
               </div>
             </TabsContent>
