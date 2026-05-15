@@ -1002,7 +1002,7 @@ export function StudioHeader() {
         </h1>
         <p className="mt-3 sm:mt-4 text-foreground/70 max-w-2xl text-sm sm:text-lg leading-relaxed">
           Premium generator email potpisa u brendu EKO Elektrofrigo — piksel-savršenstvo.
-          QR vCard, OEM bedževi poverenja, dual CTA dugmad, social proof i jedan-klik multi-platform export.
+          OEM bedževi poverenja, dual CTA dugmad, social proof i jedan-klik multi-platform export.
         </p>
       </div>
     </header>
